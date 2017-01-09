@@ -1,0 +1,38 @@
+defaults: &defaults
+  location_id: 1
+  organization_id: 1
+  compute_resource_id: 1
+  compute_profile: Small
+  image_id: 3
+  build: 1
+  enabled: 1
+  provision_method: image
+  hostgroup: MyCoolHostGroup
+  managed: 1
+  owner_id: 1
+  owner_type: User
+  compute_attributes:
+    start: '1'
+  host_parameters:
+     - name: param1
+       value: 'value1'
+     - name: param2
+       value: 'value2'
+
+servergroup1: &servergroup1
+  compute_profile: Large
+  subnet: SG-1
+  <<: *defaults
+
+servergroup2: &servergroup2
+  compute_profile: Medium
+  subnet: SG-2
+  <<: *defaults
+
+hosts:
+  server01:
+    ip: 192.168.110.11
+    <<: *servergroup1
+  server02:
+    ip: 192.168.111.11
+    <<: *servergroup2
